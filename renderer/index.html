@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Yasmeen</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="panel">
+      <header>
+        <img class="mark" src="mark.png" width="18" height="18" alt="" />
+        <input id="search" type="search" placeholder="Search" aria-label="Search listeners" />
+        <div class="header-actions">
+          <button id="refresh" type="button" aria-label="Refresh" title="Refresh">↻</button>
+          <button id="settings-toggle" type="button" aria-pressed="false" aria-label="Settings" title="Settings">⚙</button>
+        </div>
+      </header>
+      <div class="toolbar">
+        <div class="toolbar-row">
+          <div class="chips" role="radiogroup" aria-label="Filter listeners">
+            <button type="button" data-filter="dev" role="radio" aria-checked="true">Dev</button>
+            <button type="button" data-filter="localhost" role="radio" aria-checked="false">Local</button>
+            <button type="button" data-filter="all" role="radio" aria-checked="false">All</button>
+            <button type="button" data-filter="system" role="radio" aria-checked="false">Sys</button>
+          </div>
+          <select id="sort" aria-label="Sort listeners">
+            <option value="port">Port</option>
+            <option value="cpu">CPU</option>
+            <option value="memory">Mem</option>
+            <option value="uptime">Time</option>
+          </select>
+        </div>
+      </div>
+      <p id="banner" class="banner" hidden></p>
+      <div id="list" class="list" role="listbox" aria-label="Listening ports"></div>
+      <section id="settings" class="settings" hidden>
+        <label class="check"><input id="open-at-login" type="checkbox" /> Open at login</label>
+        <label class="check"><input id="close-after-action" type="checkbox" /> Close after open</label>
+        <p id="shortcut" class="hint"></p>
+      </section>
+      <footer>
+        <span id="status" aria-live="polite"></span>
+        <button id="stop-visible" type="button">Stop</button>
+      </footer>
+    </div>
+    <div id="confirm" class="confirm" hidden>
+      <form id="confirm-form">
+        <h2 id="confirm-title">Stop this process?</h2>
+        <p id="confirm-body"></p>
+        <div class="confirm-actions">
+          <button id="confirm-cancel" type="button">Cancel</button>
+          <button id="confirm-force" type="button">Force stop</button>
+          <button id="confirm-accept" type="submit">Stop</button>
+        </div>
+      </form>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

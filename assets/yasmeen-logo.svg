@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 72" fill="none">
+  <g stroke-linecap="round" transform="translate(8 8)">
+    <path d="M10 8c6 8 12 16 14 22" stroke="#6ee7b7" stroke-width="10" />
+    <path d="M40 10c-6 8-11 15-13 20" stroke="#34d399" stroke-width="9" />
+    <path d="M24 28v14" stroke="#10b981" stroke-width="8" />
+  </g>
+  <text
+    x="78"
+    y="46"
+    fill="#065f46"
+    font-family="Palatino, 'Iowan Old Style', Georgia, serif"
+    font-size="36"
+  >
+    Yasmeen
+  </text>
+</svg>
