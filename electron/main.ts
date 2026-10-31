@@ -17,7 +17,7 @@ import { loadSettings, normalizeSettings, saveSettings, settingsPatch } from '..
 import type { ActionResult, BulkStopResult, ListenerRow, Snapshot, StopSignal } from '../types'
 import { createTrayImage } from './trayIcon'
 
-const preview = process.env.WHARF_PREVIEW === '1'
+const preview = process.env.YASMEEN_PREVIEW === '1'
 
 let tray: Tray | null = null
 let panel: BrowserWindow | null = null
@@ -111,8 +111,8 @@ function createPanel(): BrowserWindow {
     event.preventDefault()
     window.hide()
   })
-  if (preview && process.env.WHARF_SNAPSHOT) {
-    const snapshotFile = process.env.WHARF_SNAPSHOT
+  if (preview && process.env.YASMEEN_SNAPSHOT) {
+    const snapshotFile = process.env.YASMEEN_SNAPSHOT
     window.webContents.on('did-finish-load', () => {
       setTimeout(() => {
         void writePreviewSnapshot(snapshotFile)
@@ -314,7 +314,7 @@ async function writePreviewSnapshot(snapshotFile: string): Promise<void> {
   fs.mkdirSync(path.dirname(snapshotFile), { recursive: true })
   fs.writeFileSync(snapshotFile, image.toPNG())
   fs.writeFileSync(snapshotFile.replace(/\.png$/, '.json'), JSON.stringify({ before, after }, null, 2))
-  if (process.env.WHARF_SNAPSHOT_EXIT === '1') app.quit()
+  if (process.env.YASMEEN_SNAPSHOT_EXIT === '1') app.quit()
 }
 
 function applyLoginItem(openAtLogin: boolean): void {

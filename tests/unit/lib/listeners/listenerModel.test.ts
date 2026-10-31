@@ -122,7 +122,7 @@ test('buildListeners does not treat a language framework bundle as the host app'
         commandLine: '/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python -m http.server 8766',
       }],
     ]),
-    new Map([[9, '/Users/samra/Testing app/wharf']]),
+    new Map([[9, '/Users/samra/yasmeen']]),
     {
       currentUid: 501,
       ownPids: new Set([10]),

@@ -58,7 +58,7 @@ export interface BulkStopResult extends ActionResult {
   stoppedIds: string[]
 }
 
-export interface WharfBridge {
+export interface YasmeenBridge {
   refresh(): Promise<Snapshot>
   openListener(id: string): Promise<ActionResult>
   copyListener(id: string): Promise<ActionResult>

@@ -11,7 +11,7 @@
     "build": "rm -rf dist && tsc -p tsconfig.json && tsc -p tsconfig.renderer.json && node scripts/bundle-renderer.mjs",
     "test": "npm run build && node --test dist/tests/unit/lib/listeners/*.test.js dist/tests/unit/application/*.test.js",
     "dev": "npm run build && electron .",
-    "preview": "npm run build && WHARF_PREVIEW=1 electron .",
+    "preview": "npm run build && YASMEEN_PREVIEW=1 electron .",
     "pack": "npm run icons && npm run build && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac"
   },
   "build": {

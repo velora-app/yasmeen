@@ -5,9 +5,9 @@ import { deflateSync } from 'node:zlib'
 const size = 1024
 const pixels = Buffer.alloc(size * size * 4)
 const leaves = [
-  { from: [-0.46, -0.5], to: [-0.05, 0.02], radius: 0.2, color: [110, 231, 183] },
-  { from: [0.48, -0.46], to: [0.08, 0.05], radius: 0.18, color: [52, 211, 153] },
-  { from: [0.01, 0.14], to: [0.01, 0.58], radius: 0.155, color: [16, 185, 129] },
+  { from: [-0.5, -0.52], to: [-0.12, -0.06], radius: 0.18, color: [110, 231, 183] },
+  { from: [0.52, -0.48], to: [0.14, -0.02], radius: 0.17, color: [52, 211, 153] },
+  { from: [0, 0.16], to: [0, 0.6], radius: 0.15, color: [16, 185, 129] },
 ]
 
 for (let y = 0; y < size; y += 1) {
@@ -44,8 +44,8 @@ function markPng(side) {
 }
 
 function paleMint(x, y) {
-  const light = [236, 253, 245]
-  const deep = [209, 250, 229]
+  const light = [244, 253, 248]
+  const deep = [220, 252, 231]
   const t = Math.min(1, Math.max(0, x * 0.35 + y * 0.65))
   return [...light.map((channel, index) => Math.round(channel + (deep[index] - channel) * t)), 255]
 }

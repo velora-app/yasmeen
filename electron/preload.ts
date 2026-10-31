@@ -1,8 +1,8 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { channels } from '../lib/constants'
-import type { ActionResult, BulkStopResult, Settings, Snapshot, StopSignal, WharfBridge } from '../types'
+import type { ActionResult, BulkStopResult, Settings, Snapshot, StopSignal, YasmeenBridge } from '../types'
 
-const bridge: WharfBridge = {
+const bridge: YasmeenBridge = {
   refresh: () => ipcRenderer.invoke(channels.refresh) as Promise<Snapshot>,
   openListener: (id) => ipcRenderer.invoke(channels.open, id) as Promise<ActionResult>,
   copyListener: (id) => ipcRenderer.invoke(channels.copy, id) as Promise<ActionResult>,
@@ -18,4 +18,4 @@ const bridge: WharfBridge = {
   },
 }
 
-contextBridge.exposeInMainWorld('wharf', bridge)
+contextBridge.exposeInMainWorld('yasmeen', bridge)

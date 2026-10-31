@@ -1,9 +1,9 @@
 import { isListenerFilter, isSortKey, metaLine, rowSignature, visibleListeners } from '../application'
-import type { ActionResult, ListenerRow, Snapshot, StopSignal, WharfBridge } from '../types'
+import type { ActionResult, ListenerRow, Snapshot, StopSignal, YasmeenBridge } from '../types'
 
 declare global {
   interface Window {
-    wharf: WharfBridge
+    yasmeen: YasmeenBridge
   }
 }
 
@@ -40,7 +40,7 @@ let confirmState: ConfirmState | null = null
 let listSignature = ''
 
 refreshButton?.addEventListener('click', () => {
-  void window.wharf.refresh()
+  void window.yasmeen.refresh()
 })
 
 settingsToggle?.addEventListener('click', () => {
@@ -56,23 +56,23 @@ searchInput?.addEventListener('input', () => {
 sortSelect?.addEventListener('change', () => {
   const sortKey = sortSelect.value
   if (!isSortKey(sortKey)) return
-  void window.wharf.updateSettings({ sortKey })
+  void window.yasmeen.updateSettings({ sortKey })
 })
 
 for (const button of filterButtons) {
   button.addEventListener('click', () => {
     const filter = button.dataset.filter
     if (!isListenerFilter(filter)) return
-    void window.wharf.updateSettings({ filter })
+    void window.yasmeen.updateSettings({ filter })
   })
 }
 
 openAtLogin?.addEventListener('change', () => {
-  void window.wharf.updateSettings({ openAtLogin: openAtLogin.checked })
+  void window.yasmeen.updateSettings({ openAtLogin: openAtLogin.checked })
 })
 
 closeAfterAction?.addEventListener('change', () => {
-  void window.wharf.updateSettings({ closeAfterAction: closeAfterAction.checked })
+  void window.yasmeen.updateSettings({ closeAfterAction: closeAfterAction.checked })
 })
 
 stopVisibleButton?.addEventListener('click', () => {
@@ -102,31 +102,31 @@ window.addEventListener('keydown', (event) => {
     else if (settingsOpen) {
       settingsOpen = false
       renderChrome()
-    } else void window.wharf.hide()
+    } else void window.yasmeen.hide()
     return
   }
   if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return
   if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
     event.preventDefault()
     moveSelection(event.key === 'ArrowDown' ? 1 : -1)
-  } else if (event.key === 'o' || event.key === 'O') void runSelected((row) => window.wharf.openListener(row.id))
-  else if (event.key === 'f' || event.key === 'F') void runSelected((row) => window.wharf.focusListener(row.id))
-  else if (event.key === 'c' || event.key === 'C') void runSelected((row) => window.wharf.copyListener(row.id))
+  } else if (event.key === 'o' || event.key === 'O') void runSelected((row) => window.yasmeen.openListener(row.id))
+  else if (event.key === 'f' || event.key === 'F') void runSelected((row) => window.yasmeen.focusListener(row.id))
+  else if (event.key === 'c' || event.key === 'C') void runSelected((row) => window.yasmeen.copyListener(row.id))
   else if (event.key === 'k' || event.key === 'K') openStopConfirm()
   else if (event.key === '/') searchInput?.focus()
 })
 
-if (!window.wharf) {
+if (!window.yasmeen) {
   if (banner) {
     banner.hidden = false
     banner.textContent = 'Yasmeen is not connected.'
   }
 } else {
-  window.wharf.onSnapshot((next) => {
+  window.yasmeen.onSnapshot((next) => {
     snapshot = next
     render()
   })
-  void window.wharf.refresh()
+  void window.yasmeen.refresh()
 }
 
 function render(): void {
@@ -227,9 +227,9 @@ function actionBar(row: ListenerRow): HTMLElement {
   const bar = document.createElement('div')
   bar.className = 'row-actions'
   bar.append(
-    actionButton('Open', () => window.wharf.openListener(row.id)),
-    actionButton('Focus', () => window.wharf.focusListener(row.id), !row.hostAppPath),
-    actionButton('Copy', () => window.wharf.copyListener(row.id)),
+    actionButton('Open', () => window.yasmeen.openListener(row.id)),
+    actionButton('Focus', () => window.yasmeen.focusListener(row.id), !row.hostAppPath),
+    actionButton('Copy', () => window.yasmeen.copyListener(row.id)),
     actionButton('Stop', () => openStopConfirm(row), !row.canStop, row.stopBlockReason),
   )
   return bar
@@ -281,10 +281,10 @@ async function submitConfirm(): Promise<void> {
   const pending = confirmState
   closeConfirm()
   if (pending.kind === 'bulk') {
-    showResult(await window.wharf.stopVisible(pending.rows.map((row) => row.id)))
+    showResult(await window.yasmeen.stopVisible(pending.rows.map((row) => row.id)))
     return
   }
-  showResult(await window.wharf.stopListener(pending.row.id, pending.signal))
+  showResult(await window.yasmeen.stopListener(pending.row.id, pending.signal))
 }
 
 function closeConfirm(): void {
